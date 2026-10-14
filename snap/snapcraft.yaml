@@ -1,0 +1,59 @@
+name: numbat
+base: core26
+version: '1.24.0'
+title: Numbat
+summary: Scientific calculator with physical units and dimensional analysis
+description: |
+  Numbat is a calculator and programming language for scientific
+  computations. It knows physical units, converts between them and checks
+  that dimensions match. Run it without arguments for an interactive session.
+
+  **Examples**
+
+     numbat -e "8 km / (1 h + 25 min) -> mph"
+     numbat -e "100 EUR -> USD"
+     numbat ./my-script.nbt
+
+  **File access**
+
+  Numbat can run scripts in your home directory. To also use USB drives and
+  other removable media (/media, /mnt), run:
+
+     sudo snap connect numbat:removable-media
+license: MIT OR Apache-2.0
+grade: stable
+confinement: strict
+website: https://numbat.dev
+source-code: https://github.com/sharkdp/numbat
+issues: https://github.com/sharkdp/numbat/issues
+
+platforms:
+  amd64:
+  arm64:
+  armhf:
+  ppc64el:
+  riscv64:
+  s390x:
+
+apps:
+  numbat:
+    command: bin/numbat
+    plugs:
+      - home
+      - removable-media
+      - network
+
+parts:
+  numbat:
+    plugin: rust
+    source: https://github.com/sharkdp/numbat.git
+    source-tag: 'v1.24.0'
+    rust-channel: '1.93.0'
+    rust-path:
+      - numbat-cli
+    build-packages:
+      - build-essential
+    override-build: |
+      craftctl default
+      install -Dm644 LICENSE-MIT "$CRAFT_PART_INSTALL/share/doc/numbat/LICENSE-MIT"
+      install -Dm644 LICENSE-APACHE "$CRAFT_PART_INSTALL/share/doc/numbat/LICENSE-APACHE"
