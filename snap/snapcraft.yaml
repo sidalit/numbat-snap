@@ -26,6 +26,7 @@ confinement: strict
 website: https://numbat.dev
 source-code: https://github.com/sharkdp/numbat
 issues: https://github.com/sharkdp/numbat/issues
+contact: https://github.com/sidalit/numbat-snap/issues
 
 platforms:
   amd64:
