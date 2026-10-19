@@ -1,6 +1,6 @@
 name: numbat
 base: core26
-version: '1.24.0'
+adopt-info: numbat
 title: Numbat
 summary: Scientific calculator with physical units and dimensional analysis
 description: |
@@ -48,12 +48,16 @@ parts:
   numbat:
     plugin: rust
     source: https://github.com/sharkdp/numbat.git
+    # renovate: depName=sharkdp/numbat
     source-tag: 'v1.24.0'
     rust-channel: '1.93.0'
     rust-path:
       - numbat-cli
     build-packages:
       - build-essential
+    override-pull: |
+      craftctl default
+      craftctl set version="$(git -C "$CRAFT_PART_SRC" describe --tags --match 'v[0-9]*' | sed 's/^v//')"
     override-build: |
       craftctl default
       install -Dm644 LICENSE-MIT "$CRAFT_PART_INSTALL/share/doc/numbat/LICENSE-MIT"
