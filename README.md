@@ -47,7 +47,7 @@ Create a default config with `numbat --generate-config`.
 
 ## Update to a new upstream release
 
-Change `source-tag` in `snap/snapcraft.yaml`, then rebuild.
+Change `version` in `snap/snapcraft.yaml`, then rebuild.
 
 ## Automation
 
