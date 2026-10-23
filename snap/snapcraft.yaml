@@ -24,8 +24,12 @@ license: MIT OR Apache-2.0
 grade: stable
 confinement: strict
 website: https://numbat.dev
-source-code: https://github.com/sharkdp/numbat
-issues: https://github.com/sharkdp/numbat/issues
+source-code:
+  - https://github.com/sharkdp/numbat
+  - https://github.com/sidalit/numbat-snap
+issues:
+  - https://github.com/sharkdp/numbat/issues
+  - https://github.com/sidalit/numbat-snap/issues
 contact: https://github.com/sidalit/numbat-snap/issues
 
 platforms:
