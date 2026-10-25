@@ -1,58 +1,75 @@
-# Numbat snap
+<div align="center">
+
+<img src="snap/gui/numbat.png" alt="Numbat logo" width="128" />
+
+# Numbat
+
+**Calculate with physical units and dimensional analysis.**
 
 [![numbat](https://snapcraft.io/numbat/badge.svg)](https://snapcraft.io/numbat)
+[![Base: core26](https://img.shields.io/badge/Base-core26-2C8C3C?logo=canonical&logoColor=white)](https://snapcraft.io/core26)
+![Confinement: strict](https://img.shields.io/badge/Confinement-strict-2C8C3C)
+[![Maintainer: sidaliteir](https://img.shields.io/badge/Maintainer-sidaliteir-2C8C3C?logo=snapcraft&logoColor=white)](https://snapcraft.io/publisher/sidaliteir)
+![Architectures: amd64 and arm64](https://img.shields.io/badge/Architectures-amd64%20%7C%20arm64-2C8C3C?logo=linux&logoColor=white)
 
-Snap packaging for [Numbat](https://github.com/sharkdp/numbat), a scientific calculator and programming language with physical units and dimensional analysis.
+[Getting Started](#getting-started) · [Configure](#configure) · [Limitations](#limitations) · [Build](#build) · [Support](#support) · [License](#license)
 
-Unofficial build, not affiliated with or endorsed by the Numbat project.
+Unofficial snap packaging for [Numbat](https://github.com/sharkdp/numbat), a scientific calculator and programming language with built-in unit conversions.
 
-## Build
+</div>
 
-```bash
-snapcraft pack
-```
+---
 
-## Install and try
+## Getting Started
 
 <a href="https://snapcraft.io/numbat"><img alt="Get it from the Snap Store" src="https://snapcraft.io/en/dark/install.svg" width="180"></a>
 
 ```bash
-sudo snap install numbat                   # or a local build: ./numbat_1.24.0_*.snap --dangerous
-sudo snap connect numbat:removable-media   # optional: /media, /mnt
-numbat -e "8 km / (1 h + 25 min) -> mph"
-numbat -e "100 EUR -> USD"                 # exchange rates are fetched from the ECB
-numbat                                     # interactive session
+sudo snap install numbat
+numbat
 ```
 
-Numbat's standard library is built into the binary, so nothing else needs to be installed.
+Run a calculation directly with `numbat -e "8 km / (1 h + 25 min) -> mph"`. The standard library is included; currency conversions fetch exchange rates from the European Central Bank.
 
-### Configuration and history
+## Configure
 
-Strict confinement gives the snap its own home folder, so files live under `~/snap/numbat/current` instead of `~`:
+There are no `snap set` options. Create a default application configuration with:
+
+```bash
+numbat --generate-config
+```
 
 | File | Location |
 |---|---|
-| Config | `~/snap/numbat/current/.config/numbat/config.toml` |
-| Init script | `~/snap/numbat/current/.config/numbat/init.nbt` |
+| Configuration | `~/snap/numbat/current/.config/numbat/config.toml` |
+| Startup script | `~/snap/numbat/current/.config/numbat/init.nbt` |
 | Custom modules | `~/snap/numbat/current/.config/numbat/modules/` |
 | History | `~/snap/numbat/current/.local/share/numbat/history` |
 
-Create a default config with `numbat --generate-config`.
+These locations belong to the snap; an existing host configuration is not read automatically. To open scripts on removable drives under `/media` or `/mnt`:
 
-## Known limitations
+```bash
+sudo snap connect numbat:removable-media
+```
 
-### Plots
+## Limitations
 
-`show(...)` on a plot (for example `show(line_plot(sin, 0, 2pi))`) does not work. Numbat writes the plot as an HTML file in the snap's private `/tmp` and runs `xdg-open` to show it in a browser. Strict confinement blocks this, so Numbat stops with `Could not find default application for HTML files` and `Permission denied`. All other calculations work.
+Opening plots with `show(...)` does not work: plot HTML is written into the snap's private temporary directory and cannot be opened in the host browser. This does not prevent normal calculations or scripts from running.
 
-## Update to a new upstream release
+## Build
 
-Change `version` in `snap/snapcraft.yaml`, then rebuild.
+```bash
+git clone https://github.com/sidalit/numbat-snap.git
+cd numbat-snap
+sudo snap install snapcraft --classic
+snapcraft pack
+```
 
-## Automation
+## Support
 
-Builds, publishing, and dependency updates use [snap-automation](https://github.com/sidalit/snap-automation).
+- **Installation or snap issues:** [open a packaging issue](https://github.com/sidalit/numbat-snap/issues).
+- **Application bugs:** [report them upstream](https://github.com/sharkdp/numbat/issues).
 
 ## License
 
-The packaging is MIT-licensed (see `LICENSE`). Numbat is dual-licensed under MIT or Apache-2.0; its dependencies carry their own licenses.
+Snap packaging: [MIT](https://github.com/sidalit/numbat-snap/blob/main/LICENSE).

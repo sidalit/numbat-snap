@@ -2,6 +2,7 @@ name: numbat
 base: core26
 version: '1.24.0'
 title: Numbat
+icon: snap/gui/numbat.png
 summary: Scientific calculator with physical units and dimensional analysis
 description: |
   Numbat is a calculator and programming language for scientific
