@@ -48,6 +48,9 @@ apps:
       - home
       - removable-media
       - network
+    environment:
+      XDG_CONFIG_HOME: $SNAP_USER_DATA/.config
+      XDG_DATA_HOME: $SNAP_USER_DATA/.local/share
 
 parts:
   numbat:
